@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--Corporacion Cyber Power S.A.C. / www.cyberpowerperu.com-->
+<DespatchAdvice xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2">				       
+  <ext:UBLExtensions> 
+  		<ext:UBLExtension>
+			<ext:ExtensionContent><ds:Signature Id="SignatureSP"><SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#"><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>SxSMzjvjEDni9oTkGIqYmuJwbAI=</DigestValue></Reference></SignedInfo><SignatureValue xmlns="http://www.w3.org/2000/09/xmldsig#">Pv0JsxE3yPaZKnIhM+LRDb+cdmHFGul3FOPti5TAB/mYK33wjLgfrKWR+OEMkysAhkZj5gXrZtCJfkZJ/PDWsCJYwq3nIrOxwiC/IN3fM8gpDEFkTRYVxSV+Hy1vNihtUvXYJJR/zeBjxMe25/sidOW0qA9z/Hb1zvS9Gt58UmeUxacWczfr7D1TVxokb8acY2ZHzbsqhZb54VLsqyc584aA68Fb2llscj/XTrgbgwbvnfQSRRIF7cswpHtb89d/v5pofmGjoYiYc7FEBrws2o5zJWtkuhfCj+/gEQjefRPXqDvep2yd9UoB1ia+C0l1pm9aDazEgrteKWmc7cqbXQ==</SignatureValue><KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#"><X509Data><X509SubjectName>C=PE, O=CORPORACION CYBER POWER SAC, OID.2.5.4.97=20538236021, OU=Issued by AC CAMERFIRMA PERÚ SAC ER [PE1], OU=GERENCIA, T=GERENTE GENERAL, S=LIMA - LIMA, L=LOS OLIVOS, SERIALNUMBER=DNI:44374504, SN=ROSAS AGUILAR, G=MEYLAN, CN=MEYLAN ROSAS AGUILAR, E=jaime.lopez@cyberpowerperu.com</X509SubjectName><X509Certificate>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</X509Certificate></X509Data></KeyInfo></ds:Signature></ext:ExtensionContent>
+		</ext:UBLExtension>
+  </ext:UBLExtensions>
+  <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+  <cbc:CustomizationID>1.0</cbc:CustomizationID>
+  <cbc:ID>T001-00000004</cbc:ID>
+  <cbc:IssueDate>2020-11-26</cbc:IssueDate>   
+  <cbc:DespatchAdviceTypeCode>09</cbc:DespatchAdviceTypeCode>
+  <cbc:Note>VENTA</cbc:Note>  
+  <cac:OrderReference>
+    <cbc:ID>T001-00000004</cbc:ID>
+    <cbc:OrderTypeCode name="Guia de Remision">09</cbc:OrderTypeCode>
+  </cac:OrderReference>   
+  <cac:Signature> 
+    <cbc:ID>20538236021</cbc:ID>
+	<cbc:Note>Elaborado por Sistema de Gestión - SERVAL</cbc:Note>
+    <cac:SignatoryParty>
+      <cac:PartyIdentification>
+        <cbc:ID>20538236021</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name><![CDATA[CORPORACION CYBER POWER SAC]]></cbc:Name>
+      </cac:PartyName>
+    </cac:SignatoryParty>
+    <cac:DigitalSignatureAttachment>
+      <cac:ExternalReference>
+        <cbc:URI>SIGN</cbc:URI>
+      </cac:ExternalReference>
+    </cac:DigitalSignatureAttachment>
+  </cac:Signature>  
+  <cac:DespatchSupplierParty>
+    <cbc:CustomerAssignedAccountID schemeID="6">20538236021</cbc:CustomerAssignedAccountID>
+    <cac:Party>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName><![CDATA[CORPORACION CYBER POWER SAC]]></cbc:RegistrationName>
+      </cac:PartyLegalEntity>
+    </cac:Party>
+  </cac:DespatchSupplierParty>  
+  <cac:DeliveryCustomerParty>
+    <cbc:CustomerAssignedAccountID schemeID="6">20536205153</cbc:CustomerAssignedAccountID>
+    <cac:Party>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName><![CDATA[ARIES JCLC SAC]]></cbc:RegistrationName>
+      </cac:PartyLegalEntity>
+    </cac:Party>
+  </cac:DeliveryCustomerParty>  
+  <cac:Shipment>
+    <cbc:ID>1</cbc:ID>
+    <cbc:HandlingCode>01</cbc:HandlingCode>
+    <cbc:Information>VENTA</cbc:Information>
+    <cbc:GrossWeightMeasure unitCode="KGM">5.00</cbc:GrossWeightMeasure>
+    <cac:ShipmentStage>
+      <cbc:TransportModeCode>1</cbc:TransportModeCode>
+      <cac:TransitPeriod>     
+      	<cbc:StartDate>2020-11-26</cbc:StartDate>
+      </cac:TransitPeriod>    
+      <cac:CarrierParty>
+        <cac:PartyIdentification>
+          <cbc:ID schemeID=".NULL.">.NULL.</cbc:ID>
+        </cac:PartyIdentification>
+        <cac:PartyName>
+          <cbc:Name><![CDATA[.NULL.]]></cbc:Name>
+        </cac:PartyName>
+      </cac:CarrierParty>      	  
+	  <cac:TransportMeans>
+		<cac:RoadTransport>
+		  <cbc:LicensePlateID>-</cbc:LicensePlateID>
+		</cac:RoadTransport>
+	  </cac:TransportMeans>
+	  <cac:DriverPerson>
+		<cbc:ID schemeID="0">-</cbc:ID>	
+	  </cac:DriverPerson>
+	</cac:ShipmentStage>
+    <cac:Delivery>
+      <cac:DeliveryAddress>
+        <cbc:ID>070101</cbc:ID>
+        <cbc:StreetName><![CDATA[AV. PROL MARISCAL DOMINGO NIE NRO. 325 URB. LOS SAUCES LIMA - ATE]]></cbc:StreetName>
+      </cac:DeliveryAddress>
+    </cac:Delivery>
+    <cac:TransportHandlingUnit>
+      <cbc:ID>5</cbc:ID>
+    </cac:TransportHandlingUnit>
+    <cac:OriginAddress>
+      <cbc:ID>150117</cbc:ID>
+      <cbc:StreetName><![CDATA[CALLE, LOS ALAMOS 165 OF 301 B URB. PEREGRINOS DEL SEÑOR LOS OLIVOS - LIMA]]></cbc:StreetName>
+    </cac:OriginAddress>
+  </cac:Shipment>   <cac:DespatchLine>
+    <cbc:ID>1</cbc:ID>
+    <cbc:DeliveredQuantity unitCode="NIU">1.00</cbc:DeliveredQuantity>
+    <cac:OrderLineReference>
+      <cbc:LineID>1</cbc:LineID>
+    </cac:OrderLineReference>
+    <cac:Item>
+      <cbc:Name><![CDATA[ADAPTADOR DE DVI A VGA]]></cbc:Name>
+      <cac:SellersItemIdentification>
+        <cbc:ID>2</cbc:ID>
+      </cac:SellersItemIdentification>
+    </cac:Item>
+  </cac:DespatchLine>
+  </DespatchAdvice>
+<!--Corporacion Cyber Power S.A.C. / www.cyberpowerperu.com-->

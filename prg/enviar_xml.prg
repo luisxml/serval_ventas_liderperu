@@ -11,8 +11,8 @@ SET STEP ON
  ps_filezip = ps_file+".zip"
  IF  .NOT. FILE(ps_filezip)
     *RETURN "Archivo zip a enviar no encontrado"
-    RETURN 0
- ENDIF
+    RETURN "<message>Error: Comprobante NO SE HA ENVIADO - Archivo zip a enviar no encontrado</message>"
+ ENDIF 
  ls_filename = JUSTFNAME(ps_filezip)
  ls_contentfile = FILETOSTR(ps_filezip)
  ls_base64 = STRCONV(ls_contentfile, 13)
@@ -40,7 +40,7 @@ SET STEP ON
  IF  .NOT. (oxmlbody.loadxml(ls_envioxml))
     oresp.mensaje = "No se cargo XML: "+oxmlbody.parseerror.reason
     *RETURN .F.
-    RETURN "<message>ERROR NO SE CARGO XML</message>"
+    RETURN "<message>Error: Comprobante NO SE HA ENVIADO - NO SE CARGO XML</message>"
  ENDIF
  lsurl = purlws
  oxmlhttp.open('POST', lsurl, .F.)
@@ -72,23 +72,23 @@ ELSE
 ENDIF
 
  
- SET STEP ON
- IF (oxmlhttp.status<>200)
- 	*MESSAGEBOX("ERROR:"+ oxmlhttp.responsetext )
-    RETURN "<message>Error: Comprobante NO SE HA ENVIADO</message>, ERROR: <httpstatus>"+ALLTRIM(STR(oxmlhttp.status))+"</httpstatus>"+ +NVL(oxmlhttp.responsetext, '')
-    *RETURN 0
- ELSE
-    loxmlresp = CREATEOBJECT("MSXML2.DOMDocument.6.0")
-    loxmlresp.loadxml(oxmlhttp.responsetext)
-    ccontenidorptazip = STREXTRACT(oxmlhttp.responsetext, "<applicationResponse>", "</applicationResponse>")
-    *MESSAGEBOX(oxmlhttp.responsetext)
-    
-    Vlc_faultcode = STREXTRACT(oxmlhttp.responsetext, "<faultcode>", "</faultcode>")
-    Vlc_faultstring= STREXTRACT(oxmlhttp.responsetext, "<faultstring>", "</faultstring>")
-    Vlc_message= STREXTRACT(oxmlhttp.responsetext, "<message>", "</message>")
-    
-    IF EMPTY(Vlc_faultcode) AND EMPTY(Vlc_faultstring) AND EMPTY(Vlc_message) THEN 
-    
+IF (oxmlhttp.status<>200)
+	*MESSAGEBOX("ERROR:"+ oxmlhttp.responsetext )
+	Vlc_faultcode = STREXTRACT(oxmlhttp.responsetext, "<faultcode>", "</faultcode>")
+	Vlc_faultstring= STREXTRACT(oxmlhttp.responsetext, "<faultstring>", "</faultstring>")
+	Vlc_message= STREXTRACT(oxmlhttp.responsetext, "<message>", "</message>")
+	RETURN "<message>Error: Comprobante NO SE HA ENVIADO -" + Vlc_faultstring + "</message>, <httpstatus>"+ALLTRIM(STR(oxmlhttp.status))+"</httpstatus>"+ +NVL(oxmlhttp.responsetext, '')
+	*RETURN 0
+ELSE
+	loxmlresp = CREATEOBJECT("MSXML2.DOMDocument.6.0")
+	loxmlresp.loadxml(oxmlhttp.responsetext)
+	ccontenidorptazip = STREXTRACT(oxmlhttp.responsetext, "<applicationResponse>", "</applicationResponse>")
+	*MESSAGEBOX(oxmlhttp.responsetext)
+	Vlc_faultcode = STREXTRACT(oxmlhttp.responsetext, "<faultcode>", "</faultcode>")
+	Vlc_faultstring= STREXTRACT(oxmlhttp.responsetext, "<faultstring>", "</faultstring>")
+	Vlc_message= STREXTRACT(oxmlhttp.responsetext, "<message>", "</message>")	
+	SET STEP ON
+	IF (EMPTY(Vlc_faultcode) OR  Vlc_faultcode = '0') AND EMPTY(Vlc_faultstring) AND EMPTY(Vlc_message) THEN 
 	    DELETE FILE ALLTRIM(ruta_cdr_local+"R-"+_nombrearchivose+".zip")
 	    STRTOFILE(STRCONV(ccontenidorptazip, 14), ruta_cdr_local+"R-"+_nombrearchivose+".zip")
 	    
@@ -97,18 +97,36 @@ ENDIF
 	     
 	    DELETE FILE ALLTRIM(ruta_rpta_server+"R-"+_nombrearchivose+".zip")
 	    STRTOFILE(STRCONV(ccontenidorptazip, 14), ruta_rpta_server+"R-"+_nombrearchivose+".zip")
-	    *STRTOFILE(STRCONV(ccontenidorptazip, 14), _rutaxml_cdr+"R-"+_nombrearchivose_CLIENTE+".zip")
-	    *STRTOFILE(STRCONV(ccontenidorptazip, 14), _rutaxml_cdr_server+"R-"+_nombrearchivose_CLIENTE+".zip")  
-	    *MESSAGEBOX(oxmlhttp.responsetext)
-	    *RETURN "COMPROBANTE ENVIADO Y ACEPTADO"
-	    RETURN '<message>ENVIADO Y ACEPTADO</message> '+'<httpstatus>'+ALLTRIM(STR(oxmlhttp.status))+'</httpstatus>'+'-'+NVL(oxmlhttp.responsetext, '')
 	    
-    ELSE
-    	RETURN oxmlhttp.responsetext
-    ENDIF 
-    
-    
-    * rptawsticket = 
- ENDIF
-
-*ENDFUNC
+	    Vlc_ruta_CDR = ''
+	    IF FILE(ruta_cdr_local+"R-"+_nombrearchivose+".zip")	
+			Vlc_ruta_CDR = ruta_cdr_local							
+		ENDIF
+		
+		IF EMPTY(Vlc_ruta_CDR)
+			IF FILE(ruta_rpta_server+"R-"+_nombrearchivose+".zip")	
+				Vlc_ruta_CDR = ruta_rpta_server							
+			ENDIF 
+		ENDIF 
+	    
+	    Vlc_CDR = leer_cdr(Vlc_ruta_CDR+"R-"+_nombrearchivose+".zip",Vlc_ruta_CDR,"R-"+_nombrearchivose+".xml")	   
+	    
+	    Vlc_codigo_CDR = ALLTRIM(STREXTRACT(Vlc_CDR, "<CodigoResCDR>", "</CodigoResCDR>"))
+	    Vlc_response_CDR = STREXTRACT(Vlc_CDR, "<ResponseCDR>", "</ResponseCDR>")
+	    
+	    IF Vlc_codigo_CDR = '0' THEN 
+	    	DELETE FILE ALLTRIM(Vlc_ruta_CDR+"R-"+_nombrearchivose+".xml")
+	    	oFSO = CREATEOBJECT("Scripting.FileSystemObject")
+			oFSO.DeleteFolder(Vlc_ruta_CDR+"dummy")
+	    	*DELETE FOLDER ALLTRIM(Vlc_ruta_CDR+"dummy")
+	    	RETURN '<message>'+Vlc_response_CDR+'</message> '+'<httpstatus>'+ALLTRIM(STR(oxmlhttp.status))+'</httpstatus>'+'-'+NVL(oxmlhttp.responsetext, '')
+	    ENDIF
+	    
+	    IF Vlc_codigo_CDR <> '0' THEN 
+	    	RETURN '<message>Error: Comprobante NO SE HA ENVIADO - '+Vlc_response_CDR+'</message> '+'<httpstatus>400</httpstatus>'+'-'+NVL(oxmlhttp.responsetext, '')
+	    ENDIF 
+	ELSE
+		RETURN '<message>Error: Comprobante NO SE HA ENVIADO - '+Vlc_faultstring+'</message> '+'<httpstatus>400</httpstatus>'+'-'+NVL(oxmlhttp.responsetext, '')
+	ENDIF 
+* rptawsticket = 
+ENDIF
